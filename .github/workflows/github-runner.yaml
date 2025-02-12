@@ -1,16 +1,12 @@
-name: Codebuild Runner
+name: Github Runner
 on: [push]
 jobs:
   Hello-World-Job:
-    runs-on:
-      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - run: echo "Hello World"
 
 jobs:
   test-runner-environment:
-    runs-on:
-      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
