@@ -18,5 +18,5 @@ jobs:
 
   github2:
     needs:
-      - github2
+      - codebuild2
     uses: ./.github/workflows/github-runner.yaml    
