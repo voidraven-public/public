@@ -6,4 +6,4 @@ jobs:
 
   test-runner-environment:
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/codebuild-runner.yaml
+    use: ./.github/workflows/codebuild-runner.yaml
