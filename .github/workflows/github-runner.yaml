@@ -2,10 +2,12 @@ name: Github Runner
 on: [push]
 jobs:
   Hello-World-Job:
+    runs-on: ubuntu-latest  
     steps:
       - run: echo "Hello World"
 
   test-runner-environment:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
