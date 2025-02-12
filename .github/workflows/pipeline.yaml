@@ -1,0 +1,9 @@
+name: Pipeline
+on: 
+  push:
+  workflow_call:
+jobs:
+
+  test-runner-environment:
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/codebuild-runner.yaml

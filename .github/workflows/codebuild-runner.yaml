@@ -1,5 +1,7 @@
 name: Codebuild Runner
-on: [push]
+on:
+  workflow_call:
+
 jobs:
   Hello-World-Job:
     runs-on:
