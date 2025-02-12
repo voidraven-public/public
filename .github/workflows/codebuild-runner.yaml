@@ -4,11 +4,6 @@ on:
   workflow_call:
 
 jobs:
-  Hello-World-Job:
-    runs-on:
-      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
-    steps:
-      - run: echo "Hello World"
 
   test-runner-environment:
     runs-on:
