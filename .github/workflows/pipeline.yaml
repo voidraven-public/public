@@ -5,5 +5,4 @@ on:
 jobs:
 
   test-runner-environment:
-    runs-on: ubuntu-latest
-    use: ./.github/workflows/codebuild-runner.yaml
+    uses: ./.github/workflows/codebuild-runner.yaml
