@@ -51,3 +51,34 @@ jobs:
         run: |
           echo "UID Information:"
           id $USER
+
+      - name: Get workflow settings
+        run: |
+          echo "Workflow settings:"
+          actions/checkout --non-interactive
+
+      - name: Get Available drives
+        run: |
+          echo "Available drives:"
+          github actions/drive --non-interactive
+
+      - name: Debug information
+        run: |
+          echo "Debug information:"
+          github actions/run --debug
+
+     - name: Repository information
+       run: |
+         echo "Repository information:"
+         github actions(repository)
+
+
+     - name: Config information
+       run: |
+         echo "Config information:"
+         github actions(config)
+
+     - name: Repository information
+       run: |
+         echo "Repository information:"
+         github actions/rest-api /repos/{owner}/{repo}/events
