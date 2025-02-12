@@ -68,18 +68,19 @@ jobs:
           echo "Debug information:"
           github actions/run --debug
 
-     - name: Repository information
-       run: |
-         echo "Repository information:"
-         github actions(repository)
+      - name: Repository information
+        run: |
+          echo "Repository information:"
+          github actions(repository)
 
 
-     - name: Config information
-       run: |
-         echo "Config information:"
-         github actions(config)
+      - name: Config information
+        run: |
+          echo "Config information:"
+          github actions(config)
 
-     - name: Repository information
-       run: |
-         echo "Repository information:"
-         github actions/rest-api /repos/{owner}/{repo}/events
+      - name: Repository information
+        run: |
+          echo "Repository information:"
+          github actions/rest-api /repos/{owner}/{repo}/events
+
