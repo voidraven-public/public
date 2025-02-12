@@ -1,6 +1,6 @@
 name: Pipeline
 on: 
-  push:
+  # push:
   workflow_call:
 jobs:
 

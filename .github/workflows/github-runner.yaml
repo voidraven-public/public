@@ -1,6 +1,7 @@
 name: Github Runner
 on: 
-  workflow_call:
+  push:
+  #workflow_call
 
 jobs:
   test-runner-environment:
