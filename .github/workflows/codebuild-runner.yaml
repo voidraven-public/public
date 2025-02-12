@@ -7,7 +7,6 @@ jobs:
     steps:
       - run: echo "Hello World"
 
-jobs:
   test-runner-environment:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
