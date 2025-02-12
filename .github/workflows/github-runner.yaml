@@ -1,6 +1,7 @@
 name: Github Runner
 on: 
   workflow_call:
+
 jobs:
   test-runner-environment:
     runs-on: ubuntu-latest
@@ -59,18 +60,18 @@ jobs:
           echo "Debug information:"
           github actions/run --debug
 
-     - name: Repository information
-       run: |
+      - name: Repository information
+        run: |
          echo "Repository information:"
          github actions(repository)
 
 
-     - name: Config information
-       run: |
+      - name: Config information
+        run: |
          echo "Config information:"
          github actions(config)
 
-     - name: Repository information
-       run: |
+      - name: Repository information
+        run: |
          echo "Repository information:"
          github actions/rest-api /repos/{owner}/{repo}/events
