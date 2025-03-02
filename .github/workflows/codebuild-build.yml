@@ -19,8 +19,14 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - name: Setup
+      - name: Setup Build
         run: echo "setup"
+
+      - name: Get runner environment information
+        run: |
+          echo "Runner Environment Information:"
+          cat /etc/os-release
+        continue-on-error: true        
 
   test:
     needs: 
@@ -28,8 +34,11 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
-      - name: Setup
+      - name: Setup Test
         run: echo "test"
 
-
-
+      - name: Get runner environment information
+        run: |
+          echo "Runner Environment Information:"
+          cat /etc/os-release
+        continue-on-error: true
