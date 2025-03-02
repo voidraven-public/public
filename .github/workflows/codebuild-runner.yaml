@@ -48,7 +48,6 @@ jobs:
         run: |
           echo "Runner Environment Information:"
           cat /etc/os-release
-          cat /etc awk -v RS='\n' '{print $0}' those files are available in this directory
         continue-on-error: true
         
       - name: Get UID information
