@@ -64,6 +64,10 @@ jobs:
             });
             return response.data.body;
 
+      - name: Echo MY_VARIABLE
+        run: |
+          echo "The value of MY_VARIABLE is: ${{ steps.generate_release_notes.outputs }}"
+
       # - name: Create Release
       #   uses: actions/create-release@v1
       #   env:
