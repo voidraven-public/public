@@ -55,11 +55,17 @@ jobs:
           echo "UID Information:"
           id $USER
 
-      - name: Get workflow settings
+      - name: Clone Repo
         run: |
           echo "Workflow settings:"
           git clone https://github.com/voidraven-public/public.git
           # actions/checkout --non-interactive
+
+      - name: repo folders
+        run: |
+          pwd
+          ls -al
+          find public
 
       # - name: Get Available drives
       #   run: |
