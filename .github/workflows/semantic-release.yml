@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          depth: 1
 
       # Step 2: Set up Node.js to use semantic-release for versioning
       - name: Set up Node.js
@@ -40,5 +38,3 @@ jobs:
         run: npx semantic-release --plugins=@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/git
 
 
-
-        
