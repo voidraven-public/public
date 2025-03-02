@@ -42,6 +42,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs:
       - create-version
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -79,4 +81,3 @@ jobs:
           body: ${{ steps.generate_release_notes.outputs.result }}
           draft: false
           prerelease: ${{ startsWith(steps.get_tag_name.outputs.TAG_NAME, 'v0.') }}
-          
