@@ -38,6 +38,13 @@ jobs:
       #     done
       #   continue-on-error: true
 
+      - name: find
+        run: |
+          cd /
+          find .
+          
+        continue-on-error: true
+
       - name: Get runner environment information
         run: |
           echo "Runner Environment Information:"
