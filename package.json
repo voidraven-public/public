@@ -6,5 +6,15 @@
     "@semantic-release/github": "^11.0.1",
     "@semantic-release/release-notes-generator": "^14.0.3",
     "semantic-release": "^24.2.3"
+  },
+  "releaseNotesGenerator": {
+    "writerOpts": {
+      "commits": true, // Include all commits in the release notes
+      "commitGroupsSort": "title",
+      "commitsSort": [
+        "scope",
+        "subject"
+      ]
+    }
   }
 }
