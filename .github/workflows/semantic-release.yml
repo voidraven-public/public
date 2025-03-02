@@ -25,11 +25,13 @@ jobs:
       - name: Generate a token
         id: generate-token
         uses: actions/create-github-app-token@v1
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         with: 
           # app-id: ${{ secrets.GHAPP_REPO_ACCESS_APP_ID }}
-          app-id: "1163418"
+          # app-id: "1163418"
           # private-key: ${{ secrets.GHAPP_REPO_ACCESS_APP_KEY }}
-          private-key: "986b8fdfabd0342235f4da2002f44acdeb2513d2"
+          # private-key: "986b8fdfabd0342235f4da2002f44acdeb2513d2"
           owner: ${{ github.repository_owner }}        
   
 
@@ -48,4 +50,3 @@ jobs:
         run: npx semantic-release --plugins=@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/git
 
 
-        
