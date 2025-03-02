@@ -9,7 +9,7 @@
   },
   "releaseNotesGenerator": {
     "writerOpts": {
-      "commits": true, // Include all commits in the release notes
+      "commits": true,
       "commitGroupsSort": "title",
       "commitsSort": [
         "scope",
