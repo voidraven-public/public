@@ -1,0 +1,31 @@
+name: Deploy Dev
+run-name: Deploy Dev - ${{ github.repository }}
+
+on:
+  push:
+  workflow_dispatch:
+    
+permissions:
+  id-token: write
+  actions: read
+  contents: read
+  packages: read
+  security-events: write
+ 
+
+jobs:
+
+  deploy:
+    if: github.ref_name == 'main'
+    uses: ./deploy.yml
+    needs:
+      - build
+    permissions:
+      id-token: write
+      actions: read
+      contents: read
+      packages: read
+      security-events: write
+    with:
+      environment: dev
+    secrets: inherit

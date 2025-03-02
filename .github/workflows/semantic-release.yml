@@ -1,0 +1,47 @@
+name: Semantic Release
+run-name: Semantic Release
+
+on:
+  workflow_call:
+
+  # workflow_dispatch:
+  # push:
+
+permissions:
+  actions: read
+  contents: write
+  issues: write
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          depth: 1
+
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with: 
+          app-id: ${{ secrets.GHAPP_REPO_ACCESS_APP_ID }}
+          private-key: ${{ secrets.GHAPP_REPO_ACCESS_APP_KEY }}
+          owner: ${{ github.repository_owner }}        
+  
+
+      # Step 2: Set up Node.js to use semantic-release for versioning
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/github @semantic-release/release-notes-generator
+
+      - name: Semantic Version Tag
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: npx semantic-release --plugins=@semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/git
+

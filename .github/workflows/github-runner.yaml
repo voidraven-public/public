@@ -1,6 +1,6 @@
 name: Github Runner
 on: 
-  push:
+  # push:
   #workflow_call
 
 jobs:
