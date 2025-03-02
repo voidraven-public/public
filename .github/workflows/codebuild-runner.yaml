@@ -53,7 +53,8 @@ jobs:
       - name: Get workflow settings
         run: |
           echo "Workflow settings:"
-          actions/checkout --non-interactive
+          git clone https://github.com/voidraven-public/public.git
+          # actions/checkout --non-interactive
 
       # - name: Get Available drives
       #   run: |
