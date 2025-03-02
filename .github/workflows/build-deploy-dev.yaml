@@ -16,7 +16,7 @@ permissions:
 jobs:
 
   semantic-release:
-    uses: ./semantic-release.yml
+    uses:  ./github/workflows/semantic-release.yml
     permissions:
       actions: read
       contents: write
