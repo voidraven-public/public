@@ -1,6 +1,6 @@
 name: Codebuild Runner
 on: 
-  # push:
+  push:
   workflow_call:
 
 jobs:

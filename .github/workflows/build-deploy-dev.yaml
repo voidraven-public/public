@@ -2,7 +2,7 @@ name: Build And Deploy Dev
 run-name: Build And Deploy Dev - ${{ github.repository }}
 
 on:
-  push:
+  # push:
   workflow_dispatch:
     
 permissions:
