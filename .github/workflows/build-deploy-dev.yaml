@@ -22,28 +22,28 @@ jobs:
       contents: write
       issues: write
     secrets: inherit    
-    needs:
-      - build
+    # needs:
+    #   - build
       
-  build:
-    uses:  ./.github/workflows/build.yml
-    permissions:
-      id-token: write
-      actions: read
-      contents: read
-      packages: read
-      security-events: write
-    secrets: inherit
+  # build:
+  #   uses:  ./.github/workflows/build.yml
+  #   permissions:
+  #     id-token: write
+  #     actions: read
+  #     contents: read
+  #     packages: read
+  #     security-events: write
+  #   secrets: inherit
 
-  deploy:
-    if: github.ref_name == 'main'
-    uses:  ./.github/workflows/deploy.yml
-    needs:
-      - build
-    permissions:
-      id-token: write
-      actions: read
-      contents: read
-      packages: read
-      security-events: write
-    secrets: inherit
+  # deploy:
+  #   if: github.ref_name == 'main'
+  #   uses:  ./.github/workflows/deploy.yml
+  #   needs:
+  #     - build
+  #   permissions:
+  #     id-token: write
+  #     actions: read
+  #     contents: read
+  #     packages: read
+  #     security-events: write
+  #   secrets: inherit
