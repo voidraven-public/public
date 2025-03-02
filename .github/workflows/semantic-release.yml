@@ -47,27 +47,27 @@ jobs:
         id: get_tag_name
         run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-      - name: Generate Release Notes
-        uses: actions/github-script@v6
-        id: generate_release_notes
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const tag = "${{ steps.get_tag_name.outputs.TAG_NAME }}";
-            const response = await github.rest.repos.generateReleaseNotes({
-              owner,
-              repo,
-              tag_name: tag,
-            });
-            return response.data.body;
+      # - name: Generate Release Notes
+      #   uses: actions/github-script@v6
+      #   id: generate_release_notes
+      #   with:
+      #     script: |
+      #       const { owner, repo } = context.repo;
+      #       const tag = "${{ steps.get_tag_name.outputs.TAG_NAME }}";
+      #       const response = await github.rest.repos.generateReleaseNotes({
+      #         owner,
+      #         repo,
+      #         tag_name: tag,
+      #       });
+      #       return response.data.body;
 
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: ${{ steps.get_tag_name.outputs.TAG_NAME }}
-          release_name: Release ${{ steps.get_tag_name.outputs.TAG_NAME }}
-          body: ${{ steps.generate_release_notes.outputs }}
-          draft: false
-          prerelease: ${{ startsWith(steps.get_tag_name.outputs.TAG_NAME, 'v0.') }}
+      # - name: Create Release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   with:
+      #     tag_name: ${{ steps.get_tag_name.outputs.TAG_NAME }}
+      #     release_name: Release ${{ steps.get_tag_name.outputs.TAG_NAME }}
+      #     body: ${{ steps.generate_release_notes.outputs }}
+      #     draft: false
+      #     prerelease: ${{ startsWith(steps.get_tag_name.outputs.TAG_NAME, 'v0.') }}
