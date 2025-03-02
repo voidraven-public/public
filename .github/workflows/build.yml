@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
 #   push:
           
-permissions:
-  id-token: write
-  actions: read
-  contents: read
-  packages: read
-  security-events: write
+# permissions:
+#   id-token: write
+#   actions: read
+#   contents: read
+#   packages: read
+#   security-events: write
 
 jobs:
 
