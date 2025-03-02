@@ -46,6 +46,4 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    with:
-      environment: dev
     secrets: inherit
