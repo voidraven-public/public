@@ -76,6 +76,6 @@ jobs:
         with:
           tag_name: ${{ steps.get_tag_name.outputs.TAG_NAME }}
           release_name: Release ${{ steps.get_tag_name.outputs.TAG_NAME }}
-          body: ${{ steps.generate_release_notes.outputs }}
+          body: ${{ steps.generate_release_notes.outputs.result }}
           draft: false
           prerelease: ${{ startsWith(steps.get_tag_name.outputs.TAG_NAME, 'v0.') }}
