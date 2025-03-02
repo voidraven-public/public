@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/voidraven-public/public/compare/v1.1.1...v1.1.2) (2025-03-02)
+
+
+### Bug Fixes
+
+* fixed the ui blue ([ed3d01c](https://github.com/voidraven-public/public/commit/ed3d01c0fc4e3275277d2c988065807614be2f43))
+* fixed the ui blue ([6412ed7](https://github.com/voidraven-public/public/commit/6412ed75f588729a09db1fe4a86fb43b28df9d63))
+
 ## [1.1.1](https://github.com/voidraven-public/public/compare/v1.1.0...v1.1.1) (2025-03-02)
 
 
