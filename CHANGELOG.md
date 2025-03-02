@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/voidraven-public/public/compare/v1.0.1...v1.1.0) (2025-03-02)
+
+
+### Features
+
+* orange ([0482adb](https://github.com/voidraven-public/public/commit/0482adb68927ec7840cb113926caba590b45ee1b))
+
 ## [1.0.1](https://github.com/voidraven-public/public/compare/v1.0.0...v1.0.1) (2025-03-02)
 
 
