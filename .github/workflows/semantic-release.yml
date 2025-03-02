@@ -26,7 +26,7 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v1
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with: 
           # app-id: ${{ secrets.GHAPP_REPO_ACCESS_APP_ID }}
           # app-id: "1163418"
