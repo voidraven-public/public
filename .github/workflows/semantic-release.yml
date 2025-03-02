@@ -67,7 +67,7 @@ jobs:
 
       - name: Echo MY_VARIABLE
         run: |
-          echo "The value of MY_VARIABLE is: ${{ steps.generate_release_notes.outputs }}"
+          echo "The value of MY_VARIABLE is: ${{ steps.generate_release_notes.outputs.result }}"
 
       - name: Create Release
         uses: actions/create-release@v1
