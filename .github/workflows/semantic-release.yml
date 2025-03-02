@@ -16,24 +16,14 @@ jobs:
   version:
     runs-on: ubuntu-latest
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           depth: 1
-
-      - name: Generate a token
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with: 
-          # app-id: ${{ secrets.GHAPP_REPO_ACCESS_APP_ID }}
-          # app-id: "1163418"
-          # private-key: ${{ secrets.GHAPP_REPO_ACCESS_APP_KEY }}
-          # private-key: "986b8fdfabd0342235f4da2002f44acdeb2513d2"
-          owner: ${{ github.repository_owner }}        
-  
 
       # Step 2: Set up Node.js to use semantic-release for versioning
       - name: Set up Node.js
