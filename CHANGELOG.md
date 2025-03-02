@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/voidraven-public/public/compare/v1.1.4...v1.1.5) (2025-03-02)
+
+
+### Bug Fixes
+
+* this ([e9b3cf5](https://github.com/voidraven-public/public/commit/e9b3cf581933e70062484e1a1e8563fefe0377af))
+
 ## [1.1.4](https://github.com/voidraven-public/public/compare/v1.1.3...v1.1.4) (2025-03-02)
 
 
