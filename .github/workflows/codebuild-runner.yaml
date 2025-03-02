@@ -89,9 +89,8 @@ jobs:
       #     github actions/rest-api /repos/{owner}/{repo}/events
 
 
-      - name: find
-        run: |
-          cd /
-          find .
-          
-        continue-on-error: true
+      # - name: find
+      #   run: |
+      #     cd /
+      #     find .
+      #   continue-on-error: true
