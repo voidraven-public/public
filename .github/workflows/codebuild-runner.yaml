@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  aws-code-build-runner-environment:
+  codebuild-environment:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -110,14 +110,14 @@ jobs:
     #   security-events: write
     # secrets: inherit
 
-  aws-code-build-runner-checkout-repository:
+  codebuild-checkout-repository:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-  aws-code-build-runner-setup-node:
+  codebuild-setup-node:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -127,7 +127,7 @@ jobs:
           node-version: '16'
 
 
-  aws-code-build-runner-setup-python:
+  codebuild-setup-python:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -135,7 +135,7 @@ jobs:
         with:
           python-version: '3.8'
 
-  aws-code-build-runner-upload-artifact:
+  codebuild-upload-artifact:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -150,7 +150,7 @@ jobs:
           name: build-artifacts
           path: ./build
 
-  aws-code-build-runner-download-artifact:
+  codebuild-download-artifact:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -163,7 +163,7 @@ jobs:
           ls -al
           find .
 
-  aws-code-build-runner-github-script:
+  codebuild-github-script:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -174,7 +174,7 @@ jobs:
             const issue_title = 'Automated Issue';
             console.log('Issue title:', issue_title);
 
-  aws-code-build-runner-github-add-label:
+  codebuild-github-add-label:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
