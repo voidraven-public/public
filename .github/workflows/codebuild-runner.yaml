@@ -6,10 +6,36 @@ on:
 
 jobs:
 
+
+  codebuild-build-output:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Set output in job1
+        id: set-output-job1
+        run: |
+          echo "my-output=Hello from Job 1" >> $GITHUB_ENV
+
+    outputs:
+      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+
+  github-build-output:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Set output in job1
+        id: set-output-job1
+        run: |
+          echo "my-output=Hello from Job 1" >> $GITHUB_ENV
+
+    outputs:
+      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+
+
   codebuild-environment:
     needs:
-      - codebuild-build
-      - github-runner-build
+      - codebuild-build-output
+      - github-build-output
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -116,6 +142,9 @@ jobs:
   codebuild-checkout-repository:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -127,6 +156,9 @@ jobs:
   codebuild-setup-node:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -141,6 +173,9 @@ jobs:
   codebuild-setup-python:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
       - uses: actions/setup-python@v4
         with:
@@ -153,6 +188,9 @@ jobs:
   codebuild-upload-artifact:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
       - name: create-artifact
         run: |
@@ -168,6 +206,9 @@ jobs:
   codebuild-download-artifact:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v3
@@ -181,6 +222,9 @@ jobs:
   codebuild-github-script:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
       - name: Print issue title
         uses: actions/github-script@v6
@@ -192,6 +236,9 @@ jobs:
   codebuild-github-add-label:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
     steps:
         - name: Label PRs based on their content
           uses: actions/labeler@v3
