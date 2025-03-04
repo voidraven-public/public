@@ -139,7 +139,9 @@ jobs:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
       - codebuild-build-output
-      - github-build-output      
+      - github-build-output  
+      - codebuild-upload-artifact
+    
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
