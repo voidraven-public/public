@@ -116,6 +116,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: List Files
+        run: |
+          ls -al
+          find .
 
   codebuild-setup-node:
     runs-on:
@@ -126,6 +130,7 @@ jobs:
         with:
           node-version: '16'
 
+          
 
   codebuild-setup-python:
     runs-on:
