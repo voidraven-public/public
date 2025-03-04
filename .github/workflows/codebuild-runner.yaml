@@ -126,7 +126,6 @@ jobs:
     steps:
       - name: create-artifact
         run: |
-          mkdir -p build
           echo aaa > build
 
       - name: Upload build artifacts
