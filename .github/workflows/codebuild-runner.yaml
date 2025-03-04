@@ -127,7 +127,7 @@ jobs:
       - name: create-artifact
         run: |
           mkdir -p build
-          echo aaa build/upload.txt
+          echo aaa > build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
