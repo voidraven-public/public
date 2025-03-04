@@ -29,7 +29,15 @@ jobs:
           cat /etc/os-release
         continue-on-error: true        
 
-  github-runner-test:
+      - name: Set output in job1
+        id: set-output-job1
+        run: |
+          echo "my-output=Hello from Job 1" >> $GITHUB_ENV
+
+    outputs:
+      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+
+  github-runner-build:
     needs: 
       - codebuild-build
     runs-on:
@@ -43,6 +51,14 @@ jobs:
           echo "Runner Environment Information:"
           cat /etc/os-release
         continue-on-error: true
+      
+      - name: Set output in job1
+        id: set-output-job1
+        run: |
+          echo "my-output=Hello from Job 1" >> $GITHUB_ENV
+
+    outputs:
+      my-output: ${{ steps.set-output-job1.outputs.my-output }}
 
   codebuild-validate:
     runs-on:

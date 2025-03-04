@@ -7,6 +7,9 @@ on:
 jobs:
 
   codebuild-environment:
+    needs:
+      - codebuild-build
+      - github-runner-build
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
