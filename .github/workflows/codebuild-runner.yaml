@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  aws-code-build-runner:
+  aws-code-build-runner-environment:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -109,3 +109,76 @@ jobs:
     #   packages: read
     #   security-events: write
     # secrets: inherit
+
+  aws-code-build-runner-checkout-repository:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+  aws-code-build-runner-setup-node:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+
+  aws-code-build-runner-setup-python:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+  aws-code-build-runner-upload-artifact:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: create-artifact
+        run: |
+          mkdir -p build
+          echo aaa build/upload.txt
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./build
+
+  aws-code-build-runner-download-artifact:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+      - name: List files
+        run: |
+          ls -al
+          find .
+
+  aws-code-build-runner-github-script:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Print issue title
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue_title = 'Automated Issue';
+            console.log('Issue title:', issue_title);
+
+  aws-code-build-runner-github-add-label:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+        - name: Label PRs based on their content
+          uses: actions/labeler@v3
+          with:
+            repo-token: ${{ secrets.GH_TOKEN }}
