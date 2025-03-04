@@ -15,7 +15,8 @@ permissions:
 
 jobs:
 
-  aws-code-build-runner-build:
+  
+  codebuild-build:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -30,7 +31,7 @@ jobs:
 
   github-runner-test:
     needs: 
-      - aws-code-build-runner-build
+      - codebuild-build
     runs-on:
       - ubuntu-latest
     steps:
@@ -43,7 +44,7 @@ jobs:
           cat /etc/os-release
         continue-on-error: true
 
-  aws-code-build-runner-validate:
+  codebuild-validate:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
