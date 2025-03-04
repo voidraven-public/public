@@ -1,5 +1,5 @@
-name: "Build"
-run-name: Build - ${{ github.repository }}
+name: "Action AWS Codebuild Runner"
+run-name: Action AWS Codebuild Runner - ${{ github.repository }}
 
 on:
   workflow_call:
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
 
-  build:
+  aws-code-build-runner-build:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -28,11 +28,11 @@ jobs:
           cat /etc/os-release
         continue-on-error: true        
 
-  test:
+  github-runner-test:
     needs: 
-      - build
+      - aws-code-build-runner-build
     runs-on:
-      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+      - ubuntu-latest
     steps:
       - name: Setup Test
         run: echo "test"
@@ -42,3 +42,18 @@ jobs:
           echo "Runner Environment Information:"
           cat /etc/os-release
         continue-on-error: true
+
+  aws-code-build-runner-validate:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - github-runner-test
+    steps:
+      - name: Setup Build
+        run: echo "setup"
+
+      - name: Get runner environment information
+        run: |
+          echo "Runner Environment Information:"
+          cat /etc/os-release
+        continue-on-error: true   

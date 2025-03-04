@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  test-runner-environment:
+  aws-code-build-runner:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
