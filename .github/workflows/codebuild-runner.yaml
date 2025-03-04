@@ -61,83 +61,8 @@ jobs:
           export MY_VAR=Hello World
           echo $MY_VAR
 
-      # - name: Execute workflow over multiple jobs
-      #   env:
-      #     JOB_NAME: job1
-      #     JOBChildIndex: 0
-      #   run: |
-      #     echo "Executing workflow over multiple jobs..."
-      #     for i in $(seq 1 $(( ${JOBChildIndex} + 1 ))); do
-      #       echo "Job Number: $i"
-      #     done
-      #   continue-on-error: true
-
-
-      - name: Get runner environment information
-        run: |
-          echo "Runner Environment Information:"
-          cat /etc/os-release
-        continue-on-error: true
-        
-      - name: Get UID information
-        run: |
-          echo "UID Information:"
-          id $USER
-
-      - name: Clone Repo
-        run: |
-          echo "Workflow settings:"
-          git clone https://github.com/voidraven-public/public.git
-          # actions/checkout --non-interactive
-
-      - name: repo folders
-        run: |
-          pwd
-          ls -al
-          find public
-
-      # - name: Get Available drives
-      #   run: |
-      #     echo "Available drives:"
-      #     github actions/drive --non-interactive
-
-      # - name: Debug information
-      #   run: |
-      #     echo "Debug information:"
-      #     github actions/run --debug
-
-      # - name: Repository information
-      #   run: |
-      #     echo "Repository information:"
-      #     github actions(repository)
-
-
-      # - name: Config information
-      #   run: |
-      #     echo "Config information:"
-      #     github actions(config)
-
-      # - name: Repository information
-      #   run: |
-      #     echo "Repository information:"
-      #     github actions/rest-api /repos/{owner}/{repo}/events
-
-
-      # - name: find
-      #   run: |
-      #     cd /
-      #     find .
-      #   continue-on-error: true
-
   build:
     uses:  ./.github/workflows/codebuild-build.yml
-    # permissions:
-    #   id-token: write
-    #   actions: read
-    #   contents: read
-    #   packages: read
-    #   security-events: write
-    # secrets: inherit
 
   codebuild-checkout-repository:
     runs-on:
