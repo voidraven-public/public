@@ -6,7 +6,36 @@ on:
 
 jobs:
 
-  test-runner-environment:
+
+  codebuild-build-output:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Set output in job1
+        id: set-output-job1
+        run: |
+          echo "my-output=Codebuild Build Output from Job 1" >> $GITHUB_ENV
+
+    outputs:
+      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+
+  github-build-output:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Set output in job1
+        id: set-output-job1
+        run: |
+          echo "my-output=Github Build Output from Job 1" >> $GITHUB_ENV
+
+    outputs:
+      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+
+
+  codebuild-environment:
+    needs:
+      - codebuild-build-output
+      - github-build-output
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -32,80 +61,119 @@ jobs:
           export MY_VAR=Hello World
           echo $MY_VAR
 
-      # - name: Execute workflow over multiple jobs
-      #   env:
-      #     JOB_NAME: job1
-      #     JOBChildIndex: 0
-      #   run: |
-      #     echo "Executing workflow over multiple jobs..."
-      #     for i in $(seq 1 $(( ${JOBChildIndex} + 1 ))); do
-      #       echo "Job Number: $i"
-      #     done
-      #   continue-on-error: true
-
-
-      - name: Get runner environment information
-        run: |
-          echo "Runner Environment Information:"
-          cat /etc/os-release
-        continue-on-error: true
-        
-      - name: Get UID information
-        run: |
-          echo "UID Information:"
-          id $USER
-
-      - name: Clone Repo
-        run: |
-          echo "Workflow settings:"
-          git clone https://github.com/voidraven-public/public.git
-          # actions/checkout --non-interactive
-
-      - name: repo folders
-        run: |
-          pwd
-          ls -al
-          find public
-
-      # - name: Get Available drives
-      #   run: |
-      #     echo "Available drives:"
-      #     github actions/drive --non-interactive
-
-      # - name: Debug information
-      #   run: |
-      #     echo "Debug information:"
-      #     github actions/run --debug
-
-      # - name: Repository information
-      #   run: |
-      #     echo "Repository information:"
-      #     github actions(repository)
-
-
-      # - name: Config information
-      #   run: |
-      #     echo "Config information:"
-      #     github actions(config)
-
-      # - name: Repository information
-      #   run: |
-      #     echo "Repository information:"
-      #     github actions/rest-api /repos/{owner}/{repo}/events
-
-
-      # - name: find
-      #   run: |
-      #     cd /
-      #     find .
-      #   continue-on-error: true
-
   build:
     uses:  ./.github/workflows/codebuild-build.yml
-    # permissions:
-    #   id-token: write
-    #   actions: read
-    #   contents: read
-    #   packages: read
-    #   security-events: write
-    # secrets: inherit
+
+  codebuild-checkout-repository:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
+    steps:
+      - name: Echo codebuid job output
+        run: |
+          echo "${{ needs.codebuild-build-output.outputs.my-output }}"
+      - name: Echo github job output
+        run: |
+          echo "${{ needs.github-build-output.outputs.my-output }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: List Files
+        run: |
+          ls -al
+          find .
+
+  codebuild-setup-node:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Check version
+        run: |
+          node --version
+
+
+
+  codebuild-setup-python:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
+    steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Check version
+        run: |
+          python --version
+
+
+  codebuild-upload-artifact:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
+    steps:
+      - name: create-artifact
+        run: |
+          echo aaa > build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: ./build
+
+  codebuild-download-artifact:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output  
+      - codebuild-upload-artifact
+    
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: List files
+        run: |
+          ls -al
+          find .
+
+  codebuild-github-script:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
+    steps:
+      - name: Print issue title
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue_title = 'Automated Issue';
+            console.log('Issue title:', issue_title);
+
+  codebuild-github-add-label:
+    runs-on:
+      - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
+    needs:
+      - codebuild-build-output
+      - github-build-output      
+    steps:
+        - name: Label PRs based on their content
+          uses: actions/labeler@v3
+          with:
+            repo-token: ${{ secrets.GH_TOKEN }}
