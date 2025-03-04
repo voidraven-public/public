@@ -73,10 +73,10 @@ jobs:
     steps:
       - name: Echo codebuid job output
         run: |
-          echo ${{ needs.codebuild-build-output.outputs.my-output }}"
+          echo "${{ needs.codebuild-build-output.outputs.my-output }}"
       - name: Echo github job output
         run: |
-          echo ${{ needs.github-build-output.outputs.my-output }}"
+          echo "${{ needs.github-build-output.outputs.my-output }}"
 
       - name: Checkout repository
         uses: actions/checkout@v2
