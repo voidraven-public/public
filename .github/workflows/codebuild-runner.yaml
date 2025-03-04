@@ -14,7 +14,7 @@ jobs:
       - name: Set output in job1
         id: set-output-job1
         run: |
-          echo "my-output=Hello from Job 1" >> $GITHUB_ENV
+          echo "my-output=Codebuild Build Output from Job 1" >> $GITHUB_ENV
 
     outputs:
       my-output: ${{ steps.set-output-job1.outputs.my-output }}
@@ -26,7 +26,7 @@ jobs:
       - name: Set output in job1
         id: set-output-job1
         run: |
-          echo "my-output=Hello from Job 1" >> $GITHUB_ENV
+          echo "my-output=Github Build Output from Job 1" >> $GITHUB_ENV
 
     outputs:
       my-output: ${{ steps.set-output-job1.outputs.my-output }}
@@ -71,6 +71,13 @@ jobs:
       - codebuild-build-output
       - github-build-output      
     steps:
+      - name: Echo codebuid job output
+        run: |
+          echo ${{ needs.codebuild-build-output.outputs.my-output }}"
+      - name: Echo github job output
+        run: |
+          echo ${{ needs.github-build-output.outputs.my-output }}"
+
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: List Files
@@ -123,7 +130,7 @@ jobs:
           echo aaa build/upload.txt
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: ./build
@@ -136,7 +143,7 @@ jobs:
       - github-build-output      
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
       - name: List files
