@@ -14,8 +14,6 @@ permissions:
   security-events: write
 
 jobs:
-
-  
   codebuild-build:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}

@@ -9,34 +9,41 @@ jobs:
   include-codebuild-build:
     uses:  ./.github/workflows/codebuild-build.yml  
 
-  codebuild-build-output:
+  codebuild-set-output:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Set output in job1
-        id: set-output-job1
+        id: set-output-job
         run: |
           echo "my-output=Codebuild Build Output from Job 1" >> $GITHUB_ENV
-
     outputs:
-      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+      my-output: ${{ steps.set-output-job.outputs.my-output }}
 
-  github-build-output:
+  job2:
+    runs-on: ubuntu-latest
+    needs: codebuild-set-output
+    steps:
+      - name: Print output from Job 1
+        run: |
+          echo "Output from Job 1: ${{ needs.codebuild-set-output.outputs.my-output }}"      
+
+  github-set-output:
     runs-on:
       - ubuntu-latest
     steps:
       - name: Set output in job1
-        id: set-output-job1
+        id: set-output-job
         run: |
           echo "my-output=Github Build Output from Job 1" >> $GITHUB_ENV
 
     outputs:
-      my-output: ${{ steps.set-output-job1.outputs.my-output }}
+      my-output: ${{ steps.set-output-job.outputs.my-output }}
 
   codebuild-environment:
     needs:
-      - codebuild-build-output
-      - github-build-output
+      - codebuild-set-output
+      - github-set-output
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
@@ -66,15 +73,15 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output      
+      - codebuild-set-output
+      - github-set-output      
     steps:
       - name: Echo codebuid job output
         run: |
-          echo "${{ needs.codebuild-build-output.outputs.my-output }}"
+          echo "${{ needs.codebuild-set-output.outputs.my-output }}"
       - name: Echo github job output
         run: |
-          echo "${{ needs.github-build-output.outputs.my-output }}"
+          echo "${{ needs.github-set-output.outputs.my-output }}"
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -87,8 +94,8 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output      
+      - codebuild-set-output
+      - github-set-output      
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -102,8 +109,8 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output      
+      - codebuild-set-output
+      - github-set-output      
     steps:
       - uses: actions/setup-python@v4
         with:
@@ -116,8 +123,8 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output      
+      - codebuild-set-output
+      - github-set-output      
     steps:
       - name: create-artifact
         run: |
@@ -133,8 +140,8 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output  
+      - codebuild-set-output
+      - github-set-output  
       - codebuild-upload-artifact
     
     steps:
@@ -151,8 +158,8 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output      
+      - codebuild-set-output
+      - github-set-output      
     steps:
       - name: Print issue title
         uses: actions/github-script@v6
@@ -165,8 +172,8 @@ jobs:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
     needs:
-      - codebuild-build-output
-      - github-build-output      
+      - codebuild-set-output
+      - github-set-output      
     steps:
         - name: Label PRs based on their content
           uses: actions/labeler@v3
