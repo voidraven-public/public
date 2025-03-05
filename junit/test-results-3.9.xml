@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.033" timestamp="2025-03-04T20:50:02.989172-06:00" hostname="titan.local"><testcase classname="tests.test_hello" name="test_hello" time="0.000"><failure message="ModuleNotFoundError: No module named 'hello'">def test_hello():
+        # Capture stdout to redirect the print output
+        captured_output = StringIO()
+        sys.stdout = captured_output
+    
+        # Import the hello.py module
+&gt;       import hello
+E       ModuleNotFoundError: No module named 'hello'
+
+tests/test_hello.py:28: ModuleNotFoundError</failure></testcase><testcase classname="tests.test_hello" name="test_failure" time="0.000"><failure message="NameError: name 'pytest' is not defined">def test_failure():
+&gt;       pytest.mark.xfail(reason="Expected failure")
+E       NameError: name 'pytest' is not defined
+
+tests/test_hello.py:35: NameError</failure></testcase></testsuite></testsuites>
