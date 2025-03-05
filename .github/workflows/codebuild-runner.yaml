@@ -6,6 +6,8 @@ on:
 
 jobs:
 
+  include-codebuild-build:
+    uses:  ./.github/workflows/codebuild-build.yml  
 
   codebuild-build-output:
     runs-on:
@@ -30,7 +32,6 @@ jobs:
 
     outputs:
       my-output: ${{ steps.set-output-job1.outputs.my-output }}
-
 
   codebuild-environment:
     needs:
@@ -60,9 +61,6 @@ jobs:
           echo "Writing environment variables..."
           export MY_VAR=Hello World
           echo $MY_VAR
-
-  build:
-    uses:  ./.github/workflows/codebuild-build.yml
 
   codebuild-checkout-repository:
     runs-on:
@@ -100,8 +98,6 @@ jobs:
         run: |
           node --version
 
-
-
   codebuild-setup-python:
     runs-on:
       - codebuild-yrdy-${{ github.run_id }}-${{ github.run_attempt }}
@@ -115,7 +111,6 @@ jobs:
       - name: Check version
         run: |
           python --version
-
 
   codebuild-upload-artifact:
     runs-on:
