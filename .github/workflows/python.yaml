@@ -53,7 +53,7 @@ jobs:
     
     - name: Run Pytest
       run: |
-        pytest tests/ \
+        pytest  \
           --doctest-modules \
           --junitxml=junit/test-results-${{ matrix.python-version }}.xml
     
