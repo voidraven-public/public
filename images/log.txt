@@ -1,0 +1,33 @@
+[Container] 2025/03/04 13:29:57.590524 Checking if docker is running. Running command: docker version
+
+GHA self-hosted runner build triggered by /actions/runs/13654812568/job/38171298976
+
+Creating GHA self-hosted runner workspace folder: actions-runner
+
+
+Downloading GHA self-hosted runner binary
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+ 63  113M   63 71.9M    0     0  92.3M      0  0:00:01 --:--:--  0:00:01 92.3M
+100  113M  100  113M    0     0  93.4M      0  0:00:01  0:00:01 --:--:-- 93.4M
+
+
+Running GHA self-hosted runner binary
+
+
+√ Connected to GitHub
+
+Current runner version: '2.322.0'
+2025-03-04 13:30:05Z: Listening for Jobs
+2025-03-04 13:30:07Z: Running job: codebuild-github-script
+2025-03-04 13:30:12Z: Job codebuild-github-script completed with result: Succeeded
+√ Removed .credentials
+√ Removed .runner
+Runner listener exit with 0 return code, stop the service, no retry needed.
+Exiting runner...
+
+[Container] 2025/03/04 13:30:12.304742 Phase complete: BUILD State: SUCCEEDED
+[Container] 2025/03/04 13:30:12.304763 Phase context status code:  Message: 
