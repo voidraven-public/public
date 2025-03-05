@@ -92,7 +92,6 @@ jobs:
           echo "Writing environment variables..."
           export MY_VAR=Hello World
           echo $MY_VAR
-
           
   codebuild-checkout-repository:
     runs-on:
