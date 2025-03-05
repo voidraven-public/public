@@ -131,11 +131,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install build twine
     
-    - name: Build Package
-      run: python -m build
+    # - name: Build Package
+    #   run: python -m build
     
-    - name: Publish to PyPI
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: twine upload dist/*
